@@ -253,11 +253,12 @@ def _get_order_by(param='-updated_at'):
         '-updated_at': Note.updated_at.desc(),
     }.get(param, Note.updated_at.desc())
 
-
+hash = hashlib.md5()
+hash.update(b'some data')
 def _generate_password(user):
     ''' generate new user password '''
-    m = md5.new()
-    m.update(
+    hash = hashlib.md5()
+    hash.update(
         "{email}{secret}{date}".format(
             email=user.email,
             secret=app.secret_key,
