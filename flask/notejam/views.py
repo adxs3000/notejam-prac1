@@ -1,5 +1,5 @@
 from datetime import date
-import md5
+import hashlib
 
 from flask import render_template, flash, request, redirect, url_for, abort
 from flask.ext.login import (login_user, login_required, logout_user,
