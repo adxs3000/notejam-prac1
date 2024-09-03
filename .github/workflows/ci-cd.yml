@@ -1,0 +1,47 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'  # Specify your Python version
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r flask/requirements.txt  # Path to requirements.txt in the 'flask' folder
+
+      - name: Run tests
+        run: |
+          # Change to the flask directory and run tests
+          cd flask
+          pytest
+
+      - name: Build application
+        run: |
+          # This step might not be necessary for a Flask application
+          echo "Building Flask application..."
+
+      - name: Deploy to server
+        run: |
+          echo "Deploying to server..."
+          # Replace with actual deployment commands, e.g., SCP to copy files, etc.
+          scp -r flask/* user@your-server:/path/to/deploy
+          ssh user@your-server 'cd /path/to/deploy && sudo systemctl restart your-flask-app'
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
