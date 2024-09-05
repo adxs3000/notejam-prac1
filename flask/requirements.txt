@@ -8,6 +8,7 @@ Jinja2==3.1.2
 SQLAlchemy==1.4.47
 Tempita==0.5.2
 WTForms==3.0.1
+email-validator==2.1.0
 pytest==7.4.2
 Werkzeug==2.2.3
 blinker==1.5
