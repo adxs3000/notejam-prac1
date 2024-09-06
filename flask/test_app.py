@@ -101,7 +101,7 @@ class SignupTestCase(NotejamBaseTestCase):
 class SigninTestCase(NotejamBaseTestCase):
     def _get_user_data(self, **kwargs):
         user_data = {
-            'email': 'email@example.com',
+            'email': 'testt@example.com',
             'password': 'secure_password'
         }
         user_data.update(**kwargs)
@@ -132,14 +132,14 @@ class SigninTestCase(NotejamBaseTestCase):
 class PadTestCase(NotejamBaseTestCase):
 
     def test_create_success(self):
-        user = self.create_user(email='email@example.com', password='password')
+        user = self.create_user(email='testt@example.com', password='password')
         with signed_in_user(user) as c:
             response = c.post(url_for('create_pad'), data={'name': 'pad'})
             self.assertRedirects(response, url_for('home'))
             self.assertEqual(1, Pad.query.count())
 
     def test_create_fail_required_name(self):
-        user = self.create_user(email='email@example.com', password='password')
+        user = self.create_user(email='testt@example.com', password='password')
         with signed_in_user(user) as c:
             response = c.post(url_for('create_pad'), data={})
             form_errors = self.get_context_variable('form').errors
@@ -151,7 +151,7 @@ class PadTestCase(NotejamBaseTestCase):
         self.assertRedirects(response, expected_redirect)
 
     def test_edit_success(self):
-        user = self.create_user(email='email@example.com', password='password')
+        user = self.create_user(email='testt@example.com', password='password')
         pad = self.create_pad(name='pad', user=user)
         with signed_in_user(user) as c:
             new_name = 'new pad name'
@@ -160,7 +160,7 @@ class PadTestCase(NotejamBaseTestCase):
             self.assertEqual(new_name, Pad.query.get(pad.id).name)
 
     def test_edit_fail_required_name(self):
-        user = self.create_user(email='email@example.com', password='password')
+        user = self.create_user(email='testt@example.com', password='password')
         pad = self.create_pad(name='pad', user=user)
         with signed_in_user(user) as c:
             response = c.post(url_for('edit_pad', pad_id=pad.id), data={'name': ''})
