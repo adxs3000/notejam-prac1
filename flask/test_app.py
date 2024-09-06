@@ -47,7 +47,7 @@ class NotejamBaseTestCase(TestCase):
 class SignupTestCase(NotejamBaseTestCase):
     def _get_user_data(self, **kwargs):
         user_data = {
-            'email': 'email@example.com',
+            'email': 'testt@example.com',
             'password': 'secure_password',
             'repeat_password': 'secure_password'
         }
